@@ -14,7 +14,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final user = await _authClient.signIn(email, password);
       return Result.ok(user);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+      if (e.code == 'user-not-found' || e.code == 'wrong-password' || e.code == 'invalid-credential') {
         return Result.error(Exception("Invalid email or password"));
       }
       return Result.error(Exception("Authentication internal error."));
