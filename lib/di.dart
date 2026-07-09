@@ -3,8 +3,11 @@ import 'package:urban_explorer/data/client/auth_client.dart';
 import 'package:urban_explorer/data/repository/auth_repository_impl.dart';
 import 'package:urban_explorer/domain/repository/auth_repository.dart';
 import 'package:urban_explorer/domain/use_case/sign_in_use_case.dart';
+import 'package:urban_explorer/domain/use_case/sign_up_use_case.dart';
 import 'package:urban_explorer/presentation/auth/sign_in/controller/sign_in_controller.dart';
 import 'package:urban_explorer/presentation/auth/sign_in/controller/state/sign_in_state.dart';
+import 'package:urban_explorer/presentation/auth/sign_up/controller/sign_up_controller.dart';
+import 'package:urban_explorer/presentation/auth/sign_up/controller/state/sign_up_state.dart';
 
 final authClientProvider = Provider((ref) => AuthClient());
 
@@ -16,6 +19,14 @@ final signInUseCaseProvider = Provider(
   (ref) => SignInUseCase(ref.watch(authRepositoryProvider)),
 );
 
+final signUpUseCaseProvider = Provider(
+  (ref) => SignUpUseCase(ref.watch(authRepositoryProvider)),
+);
+
 final signInControllerProvider = NotifierProvider<SignInController, SignInState>(
   () => SignInController(),
+);
+
+final signUpControllerProvider = NotifierProvider<SignUpController, SignUpState>(
+    () => SignUpController(),
 );

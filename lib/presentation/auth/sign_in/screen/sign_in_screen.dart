@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:urban_explorer/di.dart';
 import 'package:urban_explorer/presentation/auth/sign_in/controller/state/sign_in_state.dart';
-import 'package:urban_explorer/presentation/auth/sign_in/widget/custom_primary_button.dart';
-import 'package:urban_explorer/presentation/auth/sign_in/widget/custom_text_field.dart';
+import 'package:urban_explorer/presentation/auth/utils/form_validator.dart';
+import 'package:urban_explorer/presentation/auth/widget/custom_primary_button.dart';
+import 'package:urban_explorer/presentation/auth/widget/custom_text_field.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
@@ -56,14 +57,14 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 CustomTextField(
                   label: 'Email',
                   controller: emailController,
-                  validator: validateEmail,
+                  validator: FormValidator.validateEmail,
                 ),
                 const SizedBox(height: 20),
                 CustomTextField(
                   label: 'Password',
                   controller: passwordController,
                   isPassword: true,
-                  validator: validatePassword,
+                  validator: FormValidator.validatePassword,
                 ),
                 const SizedBox(height: 50),
                 CustomPrimaryButton(
@@ -95,32 +96,6 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
-  }
-
-  String? validateEmail(final String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter some value';
-    }
-
-    if (!RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-    ).hasMatch(value)) {
-      return 'Please enter valid email address.';
-    }
-
-    return null;
-  }
-
-  String? validatePassword(final String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter some value';
-    }
-
-    if (value.length < 8) {
-      return 'Password must be at least 8 characters long.';
-    }
-
-    return null;
   }
 
   void signIn() {

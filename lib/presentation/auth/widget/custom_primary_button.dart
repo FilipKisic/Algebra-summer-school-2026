@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:urban_explorer/presentation/style/colors.dart';
 
 class CustomPrimaryButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -19,7 +20,7 @@ class CustomPrimaryButton extends StatelessWidget {
       height: 55,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFFD17438), Color(0xFF9D2C56)],
+          colors: [AppColors.primary, AppColors.secondary],
         ),
         borderRadius: BorderRadius.circular(20),
       ),
@@ -31,8 +32,8 @@ class CustomPrimaryButton extends StatelessWidget {
         onPressed: onPressed,
         child: isLoading
             ? const CircularProgressIndicator(color: Colors.white)
-            : const Text(
-                "Sign in",
+            : Text(
+                label,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
               ),
       ),
