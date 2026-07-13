@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:urban_explorer/di.dart';
+import 'package:urban_explorer/presentation/app_router.dart';
 import 'package:urban_explorer/presentation/auth/sign_up/controller/state/sign_up_state.dart';
 import 'package:urban_explorer/presentation/auth/utils/form_validator.dart';
 import 'package:urban_explorer/presentation/auth/widget/custom_primary_button.dart';
@@ -33,12 +34,16 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       }
 
       if (currentState is SuccessState) {
-        // Navigate to the next screen or show a success message
+        Navigator.of(context).pushReplacementNamed(AppRouter.home);
       }
     });
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text('Sign Up', style: TextStyle(fontWeight: .w600)),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -93,7 +98,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.of(context).pop(),
                       child: const Text(
                         'Sign in',
                         style: TextStyle(

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:urban_explorer/di.dart';
+import 'package:urban_explorer/presentation/app_router.dart';
 import 'package:urban_explorer/presentation/auth/sign_in/controller/state/sign_in_state.dart';
 import 'package:urban_explorer/presentation/auth/utils/form_validator.dart';
 import 'package:urban_explorer/presentation/auth/widget/custom_primary_button.dart';
 import 'package:urban_explorer/presentation/auth/widget/custom_text_field.dart';
+import 'package:urban_explorer/presentation/style/colors.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
@@ -30,8 +32,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
         );
       }
       if (currentState is SuccessState) {
-        // push to the next screen
-        print('SUCCESS!!!');
+        Navigator.of(context).pushReplacementNamed(AppRouter.home);
       }
     });
 
@@ -76,10 +77,23 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Don\'t have an account?'),
+                    const Text(
+                      'Don\'t have an account?',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: .w600,
+                      ),
+                    ),
                     TextButton(
-                      onPressed: () {},
-                      child: const Text('Sign up'),
+                      onPressed: () => Navigator.of(context).pushNamed(AppRouter.signUp),
+                      child: const Text(
+                        'Sign up',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: .w600,
+                          color: AppColors.secondary,
+                        ),
+                      ),
                     ),
                   ],
                 ),
