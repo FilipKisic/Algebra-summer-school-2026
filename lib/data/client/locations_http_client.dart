@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:retrofit/http.dart';
+import 'package:retrofit/retrofit.dart';
 import 'package:urban_explorer/domain/model/location.dart';
 
 part 'locations_http_client.g.dart';
