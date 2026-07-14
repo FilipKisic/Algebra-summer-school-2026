@@ -70,10 +70,22 @@ class LocationList extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: ListView.separated(
-          itemCount: locations.length,
-          itemBuilder: (context, index) => LocationCard(location: locations[index]),
-          separatorBuilder: (context, index) => const SizedBox(height: 15),
+        child: Column(
+          crossAxisAlignment: .start,
+          children: [
+            Text(
+              'Places',
+              style: TextStyle(fontSize: 40, fontWeight: .bold),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: ListView.separated(
+                itemCount: locations.length,
+                itemBuilder: (context, index) => LocationCard(location: locations[index]),
+                separatorBuilder: (context, index) => const SizedBox(height: 15),
+              ),
+            ),
+          ],
         ),
       ),
     );
