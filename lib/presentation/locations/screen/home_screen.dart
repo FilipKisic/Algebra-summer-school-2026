@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:urban_explorer/presentation/locations/screen/favorites_screen.dart';
-import 'package:urban_explorer/presentation/locations/screen/locations_screen.dart';
+import 'package:urban_explorer/presentation/locations/favorites/screen/favorites_screen.dart';
+import 'package:urban_explorer/presentation/locations/location_list/screen/location_list_screen.dart';
 import 'package:urban_explorer/presentation/profile/profile_screen.dart';
 import 'package:urban_explorer/presentation/style/colors.dart';
 
@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   final _availableScreens = [
-    LocationsScreen(),
+    LocationListScreen(),
     FavoritesScreen(),
     ProfileScreen(),
   ];

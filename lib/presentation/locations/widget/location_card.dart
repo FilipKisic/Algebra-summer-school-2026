@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:urban_explorer/domain/model/location.dart';
+import 'package:urban_explorer/presentation/locations/widget/rating_stars.dart';
 import 'package:urban_explorer/presentation/style/colors.dart';
 
 class LocationCard extends StatelessWidget {
@@ -32,31 +33,34 @@ class LocationCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(10),
-            child: Image.network(
-              location.imageUrl,
-              width: 130,
-              height: 110,
-              fit: .cover,
-              loadingBuilder: (context, child, progress) {
-                if (progress == null) return child;
-                return Shimmer(
-                  duration: const Duration(seconds: 2),
-                  interval: const Duration(seconds: 3),
-                  child: Container(
-                    width: 130,
-                    height: 110,
-                    color: Colors.white54,
-                  ),
-                );
-              },
-              errorBuilder: (context, _, _) => Container(
+            child: Hero(
+              tag: location.id,
+              child: Image.network(
+                location.imageUrl,
                 width: 130,
                 height: 110,
-                color: Colors.white54,
-                child: Icon(
-                  Icons.error_rounded,
-                  color: AppColors.secondary,
-                  size: 32,
+                fit: .cover,
+                loadingBuilder: (context, child, progress) {
+                  if (progress == null) return child;
+                  return Shimmer(
+                    duration: const Duration(seconds: 2),
+                    interval: const Duration(seconds: 3),
+                    child: Container(
+                      width: 130,
+                      height: 110,
+                      color: Colors.white54,
+                    ),
+                  );
+                },
+                errorBuilder: (context, _, _) => Container(
+                  width: 130,
+                  height: 110,
+                  color: Colors.white54,
+                  child: Icon(
+                    Icons.error_rounded,
+                    color: AppColors.secondary,
+                    size: 32,
+                  ),
                 ),
               ),
             ),
@@ -81,18 +85,7 @@ class LocationCard extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 Spacer(),
-                Row(
-                  children: [
-                    ...List.generate(
-                      location.rating,
-                      (_) => Icon(Icons.star_rounded, color: Colors.yellow),
-                    ),
-                    ...List.generate(
-                      5 - location.rating,
-                      (_) => Icon(Icons.star_rounded, color: Colors.grey),
-                    ),
-                  ],
-                ),
+                RatingStars(rating: location.rating),
               ],
             ),
           ),

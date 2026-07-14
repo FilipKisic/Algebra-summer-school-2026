@@ -13,8 +13,8 @@ import 'package:urban_explorer/presentation/auth/sign_in/controller/sign_in_cont
 import 'package:urban_explorer/presentation/auth/sign_in/controller/state/sign_in_state.dart';
 import 'package:urban_explorer/presentation/auth/sign_up/controller/sign_up_controller.dart';
 import 'package:urban_explorer/presentation/auth/sign_up/controller/state/sign_up_state.dart';
-import 'package:urban_explorer/presentation/locations/controller/location_list_controller.dart';
-import 'package:urban_explorer/presentation/locations/controller/state/location_list_state.dart';
+import 'package:urban_explorer/presentation/locations/location_list/controller/location_list_controller.dart';
+import 'package:urban_explorer/presentation/locations/location_list/controller/state/location_list_state.dart';
 
 // ************ CLIENTS ************ //
 final dioProvider = Provider((ref) => Dio());

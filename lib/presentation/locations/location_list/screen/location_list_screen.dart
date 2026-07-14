@@ -3,11 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:urban_explorer/di.dart';
 import 'package:urban_explorer/domain/model/location.dart';
-import 'package:urban_explorer/presentation/locations/controller/state/location_list_state.dart';
+import 'package:urban_explorer/presentation/app_router.dart';
+import 'package:urban_explorer/presentation/locations/location_list/controller/state/location_list_state.dart';
 import 'package:urban_explorer/presentation/locations/widget/location_card.dart';
 
-class LocationsScreen extends ConsumerWidget {
-  const LocationsScreen({super.key});
+class LocationListScreen extends ConsumerWidget {
+  const LocationListScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -81,7 +82,10 @@ class LocationList extends StatelessWidget {
             Expanded(
               child: ListView.separated(
                 itemCount: locations.length,
-                itemBuilder: (context, index) => LocationCard(location: locations[index]),
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () => Navigator.of(context).pushNamed(AppRouter.locationDetails, arguments: locations[index]),
+                  child: LocationCard(location: locations[index]),
+                ),
                 separatorBuilder: (context, index) => const SizedBox(height: 15),
               ),
             ),

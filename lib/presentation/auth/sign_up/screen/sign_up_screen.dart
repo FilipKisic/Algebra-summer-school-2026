@@ -4,7 +4,7 @@ import 'package:urban_explorer/di.dart';
 import 'package:urban_explorer/presentation/app_router.dart';
 import 'package:urban_explorer/presentation/auth/sign_up/controller/state/sign_up_state.dart';
 import 'package:urban_explorer/presentation/auth/utils/form_validator.dart';
-import 'package:urban_explorer/presentation/auth/widget/custom_primary_button.dart';
+import 'package:urban_explorer/presentation/common/widget/custom_primary_button.dart';
 import 'package:urban_explorer/presentation/auth/widget/custom_text_field.dart';
 import 'package:urban_explorer/presentation/style/colors.dart';
 

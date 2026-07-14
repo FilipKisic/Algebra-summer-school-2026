@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:urban_explorer/di.dart';
 import 'package:urban_explorer/domain/model/location.dart';
 import 'package:urban_explorer/domain/model/result.dart';
-import 'package:urban_explorer/presentation/locations/controller/state/location_list_state.dart';
+import 'package:urban_explorer/presentation/locations/location_list/controller/state/location_list_state.dart';
 
 class LocationListController extends Notifier<LocationListState> {
   @override
