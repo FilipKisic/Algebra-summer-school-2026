@@ -73,7 +73,7 @@ class LocationList extends StatelessWidget {
         child: ListView.separated(
           itemCount: locations.length,
           itemBuilder: (context, index) => LocationCard(location: locations[index]),
-          separatorBuilder: (context, index) => const SizedBox(height: 10),
+          separatorBuilder: (context, index) => const SizedBox(height: 15),
         ),
       ),
     );

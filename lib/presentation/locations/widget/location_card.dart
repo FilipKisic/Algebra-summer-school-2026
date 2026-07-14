@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:urban_explorer/domain/model/location.dart';
 import 'package:urban_explorer/presentation/style/colors.dart';
 
@@ -18,13 +19,47 @@ class LocationCard extends StatelessWidget {
           colors: [AppColors.primary, AppColors.secondary],
         ),
         borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 5,
+            offset: Offset(0, 5),
+          ),
+        ],
       ),
       child: Row(
         crossAxisAlignment: .start,
         children: [
           ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(10),
-            child: Image.network(location.imageUrl, width: 130, height: 110, fit: .cover),
+            child: Image.network(
+              location.imageUrl,
+              width: 130,
+              height: 110,
+              fit: .cover,
+              loadingBuilder: (context, child, progress) {
+                if (progress == null) return child;
+                return Shimmer(
+                  duration: const Duration(seconds: 2),
+                  interval: const Duration(seconds: 3),
+                  child: Container(
+                    width: 130,
+                    height: 110,
+                    color: Colors.white54,
+                  ),
+                );
+              },
+              errorBuilder: (context, _, _) => Container(
+                width: 130,
+                height: 110,
+                color: Colors.white54,
+                child: Icon(
+                  Icons.error_rounded,
+                  color: AppColors.secondary,
+                  size: 32,
+                ),
+              ),
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
