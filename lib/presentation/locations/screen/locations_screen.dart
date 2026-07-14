@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:urban_explorer/di.dart';
 import 'package:urban_explorer/domain/model/location.dart';
 import 'package:urban_explorer/presentation/locations/controller/state/location_list_state.dart';
+import 'package:urban_explorer/presentation/locations/widget/location_card.dart';
 
 class LocationsScreen extends ConsumerWidget {
   const LocationsScreen({super.key});
@@ -67,10 +68,13 @@ class LocationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: ListView.separated(
-        itemCount: locations.length,
-        itemBuilder: (context, index) => Text(locations[index].title),
-        separatorBuilder: (context, index) => const SizedBox(height: 10),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: ListView.separated(
+          itemCount: locations.length,
+          itemBuilder: (context, index) => LocationCard(location: locations[index]),
+          separatorBuilder: (context, index) => const SizedBox(height: 10),
+        ),
       ),
     );
   }
