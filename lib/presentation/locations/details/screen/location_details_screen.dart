@@ -51,12 +51,31 @@ class LocationDetailsScreen extends StatelessWidget {
                 ),
               ),
               child: Column(
+                crossAxisAlignment: .start,
                 children: [
-                  Text(location.title),
-                  Text(location.address),
-                  Text('Rating'),
-                  RatingStars(rating: location.rating),
-                  Text(location.description),
+                  Text(
+                    location.title,
+                    style: TextStyle(fontSize: 32, fontWeight: .bold),
+                  ),
+                  Text(
+                    location.address,
+                    style: TextStyle(fontSize: 18, fontWeight: .w600),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    'Rating',
+                    style: TextStyle(fontSize: 16, fontWeight: .w600),
+                  ),
+                  RatingStars(
+                    rating: location.rating,
+                    foregroundColor: AppColors.secondary,
+                    size: 28,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    location.description,
+                    textAlign: .justify,
+                  ),
                   Spacer(),
                   CustomPrimaryButton(
                     label: 'Show on maps',
