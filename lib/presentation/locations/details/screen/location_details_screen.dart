@@ -3,6 +3,7 @@ import 'package:urban_explorer/domain/model/location.dart';
 import 'package:urban_explorer/presentation/common/widget/custom_primary_button.dart';
 import 'package:urban_explorer/presentation/locations/widget/rating_stars.dart';
 import 'package:urban_explorer/presentation/style/colors.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 
 class LocationDetailsScreen extends StatelessWidget {
   final Location location;
@@ -79,7 +80,7 @@ class LocationDetailsScreen extends StatelessWidget {
                   Spacer(),
                   CustomPrimaryButton(
                     label: 'Show on maps',
-                    onPressed: () {},
+                    onPressed: _openInMaps,
                   ),
                 ],
               ),
@@ -99,4 +100,6 @@ class LocationDetailsScreen extends StatelessWidget {
       ),
     );
   }
+
+  void _openInMaps() => MapsLauncher.launchCoordinates(location.lat, location.lng, location.title);
 }
