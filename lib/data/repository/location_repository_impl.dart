@@ -1,12 +1,14 @@
-import 'package:urban_explorer/data/client/locations_http_client.dart';
+import 'package:urban_explorer/data/datasource/local/db/database_manager.dart';
+import 'package:urban_explorer/data/datasource/remote/client/locations_http_client.dart';
 import 'package:urban_explorer/domain/model/location.dart';
 import 'package:urban_explorer/domain/model/result.dart';
 import 'package:urban_explorer/domain/repository/location_repository.dart';
 
 class LocationRepositoryImpl implements LocationRepository {
   final LocationsHttpClient _client;
+  final DatabaseManager _databaseManager;
 
-  LocationRepositoryImpl(this._client);
+  LocationRepositoryImpl(this._client, this._databaseManager);
 
   @override
   Future<Result<List<Location>>> getLocations() async {
@@ -17,4 +19,13 @@ class LocationRepositoryImpl implements LocationRepository {
       return Result.error(e);
     }
   }
+
+  @override
+  List<Location> getFavoriteLocations() => _databaseManager.getAllFavorites();
+
+  @override
+  Future<void> removeAsFavorite(final Location location) async => _databaseManager.removeAsFavorite(location);
+
+  @override
+  Future<void> setAsFavorite(final Location location) async => _databaseManager.setAsFavorite(location);
 }

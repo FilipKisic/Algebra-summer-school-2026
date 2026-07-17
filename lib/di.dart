@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:urban_explorer/data/client/auth_client.dart';
-import 'package:urban_explorer/data/client/locations_http_client.dart';
+import 'package:urban_explorer/data/datasource/local/db/database_manager.dart';
+import 'package:urban_explorer/data/datasource/local/db/hive_database_manager_impl.dart';
+import 'package:urban_explorer/data/datasource/remote/client/auth_client.dart';
+import 'package:urban_explorer/data/datasource/remote/client/locations_http_client.dart';
 import 'package:urban_explorer/data/repository/auth_repository_impl.dart';
 import 'package:urban_explorer/data/repository/location_repository_impl.dart';
 import 'package:urban_explorer/domain/repository/auth_repository.dart';
@@ -27,13 +29,19 @@ final locationsHttpClientProvider = Provider(
   (ref) => LocationsHttpClient(ref.watch(dioProvider)),
 );
 
+// ************ DATABASE ************ //
+final databaseManagerProvider = Provider<DatabaseManager>((ref) => HiveDatabaseManagerImpl());
+
 // ************ REPOSITORIES ************ //
 final authRepositoryProvider = Provider<AuthRepository>(
   (ref) => AuthRepositoryImpl(ref.watch(authClientProvider)),
 );
 
 final locationRepositoryProvider = Provider<LocationRepository>(
-  (ref) => LocationRepositoryImpl(ref.watch(locationsHttpClientProvider)),
+  (ref) => LocationRepositoryImpl(
+    ref.watch(locationsHttpClientProvider),
+    ref.watch(databaseManagerProvider),
+  ),
 );
 
 // ************ USE CASES ************ //

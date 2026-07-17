@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_ce_flutter/adapters.dart';
+import 'package:urban_explorer/domain/model/location.dart';
 import 'package:urban_explorer/presentation/app_router.dart';
 
 import 'firebase_options.dart';
@@ -8,6 +10,9 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Hive.initFlutter();
+  Hive.registerAdapter(LocationAdapter());
+  await Hive.openBox<Location>(locationBoxName);
   runApp(ProviderScope(child: MyApp()));
 }
 

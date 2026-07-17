@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:urban_explorer/data/client/auth_client.dart';
+import 'package:urban_explorer/data/datasource/remote/client/auth_client.dart';
 import 'package:urban_explorer/domain/model/result.dart';
 import 'package:urban_explorer/domain/repository/auth_repository.dart';
 
