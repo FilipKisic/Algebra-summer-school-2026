@@ -8,6 +8,6 @@ class SignInUseCase {
   SignInUseCase(this._authRepository);
 
   Future<Result<UserCredential>> execute(final String email, final String password) async {
-    return await _authRepository.signIn(email, password);
+    return _authRepository.signIn(email, password);
   }
 }

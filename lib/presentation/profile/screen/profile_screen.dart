@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:urban_explorer/di.dart';
+import 'package:urban_explorer/presentation/app_router.dart';
 import 'package:urban_explorer/presentation/common/widget/custom_primary_button.dart';
+import 'package:urban_explorer/presentation/profile/controller/state/profile_state.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(profileControllerProvider);
+    ref.listen(profileControllerProvider, (_, currentState) {
+      if (currentState is SuccessState) {
+        Navigator.of(context).pushNamedAndRemoveUntil(AppRouter.signIn, (route) => false);
+      }
+
+      if (currentState is ErrorState) {
+        final errorMessage = currentState.exception.toString();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(errorMessage)),
+        );
+      }
+    });
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -48,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
                       style: TextStyle(fontSize: 30, fontWeight: .w600),
                     ),
                     Text(
-                      'placeholder@mail.com',
+                      ref.read(profileControllerProvider.notifier).currentUser.email!,
                       style: TextStyle(fontSize: 16, fontWeight: .w600),
                     ),
                   ],
@@ -57,7 +75,8 @@ class ProfileScreen extends StatelessWidget {
               const Spacer(),
               CustomPrimaryButton(
                 label: 'Sign out',
-                onPressed: () {},
+                onPressed: () => ref.read(profileControllerProvider.notifier).signOut(),
+                isLoading: state is LoadingState,
               ),
             ],
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:urban_explorer/presentation/locations/favorites/screen/favorites_screen.dart';
 import 'package:urban_explorer/presentation/locations/location_list/screen/location_list_screen.dart';
-import 'package:urban_explorer/presentation/profile/profile_screen.dart';
+import 'package:urban_explorer/presentation/profile/screen/profile_screen.dart';
 import 'package:urban_explorer/presentation/style/colors.dart';
 
 class HomeScreen extends StatefulWidget {
