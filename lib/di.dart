@@ -8,7 +8,10 @@ import 'package:urban_explorer/data/repository/auth_repository_impl.dart';
 import 'package:urban_explorer/data/repository/location_repository_impl.dart';
 import 'package:urban_explorer/domain/repository/auth_repository.dart';
 import 'package:urban_explorer/domain/repository/location_repository.dart';
+import 'package:urban_explorer/domain/use_case/get_all_favorite_locations_use_case.dart';
 import 'package:urban_explorer/domain/use_case/get_locations_use_case.dart';
+import 'package:urban_explorer/domain/use_case/remove_location_as_favorite_use_case.dart';
+import 'package:urban_explorer/domain/use_case/set_location_as_favorite_use_case.dart';
 import 'package:urban_explorer/domain/use_case/sign_in_use_case.dart';
 import 'package:urban_explorer/domain/use_case/sign_out_use_case.dart';
 import 'package:urban_explorer/domain/use_case/sign_up_use_case.dart';
@@ -16,6 +19,8 @@ import 'package:urban_explorer/presentation/auth/sign_in/controller/sign_in_cont
 import 'package:urban_explorer/presentation/auth/sign_in/controller/state/sign_in_state.dart';
 import 'package:urban_explorer/presentation/auth/sign_up/controller/sign_up_controller.dart';
 import 'package:urban_explorer/presentation/auth/sign_up/controller/state/sign_up_state.dart';
+import 'package:urban_explorer/presentation/locations/favorites/controller/favorite_list_controller.dart';
+import 'package:urban_explorer/presentation/locations/favorites/controller/state/favorite_list_state.dart';
 import 'package:urban_explorer/presentation/locations/location_list/controller/location_list_controller.dart';
 import 'package:urban_explorer/presentation/locations/location_list/controller/state/location_list_state.dart';
 import 'package:urban_explorer/presentation/profile/controller/profile_controller.dart';
@@ -61,6 +66,18 @@ final getLocationsUseCaseProvider = Provider(
   (ref) => GetLocationsUseCase(ref.watch(locationRepositoryProvider)),
 );
 
+final getFavoritesUseCaseProvider = Provider(
+    (ref) => GetAllFavoriteLocationsUseCase(ref.watch(locationRepositoryProvider)),
+);
+
+final setAsFavoriteUseCaseProvider = Provider(
+      (ref) => SetLocationAsFavoriteUseCase(ref.watch(locationRepositoryProvider)),
+);
+
+final removeAsFavoriteUseCaseProvider = Provider(
+      (ref) => RemoveLocationAsFavoriteUseCase(ref.watch(locationRepositoryProvider)),
+);
+
 // ************ CONTROLLERS ************ //
 final signInControllerProvider = NotifierProvider<SignInController, SignInState>(
   () => SignInController(),
@@ -72,6 +89,10 @@ final signUpControllerProvider = NotifierProvider<SignUpController, SignUpState>
 
 final locationListControllerProvider = NotifierProvider<LocationListController, LocationListState>(
   () => LocationListController(),
+);
+
+final favoriteListControllerProvider = NotifierProvider<FavoriteListController, FavoriteListState>(
+  () => FavoriteListController(),
 );
 
 final profileControllerProvider = NotifierProvider<ProfileController, ProfileState>(
