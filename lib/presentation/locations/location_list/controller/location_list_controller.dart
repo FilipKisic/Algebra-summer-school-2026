@@ -23,4 +23,13 @@ class LocationListController extends Notifier<LocationListState> {
         state = ErrorState(result.exception);
     }
   }
+
+  void updateWithValue(final Location location) {
+    if (state is LoadedState) {
+      final loadedState = (state as LoadedState);
+      final index = loadedState.locations.indexWhere((loc) => loc.id == location.id);
+      loadedState.locations[index] = location;
+      state = LoadedState(loadedState.locations);
+    }
+  }
 }

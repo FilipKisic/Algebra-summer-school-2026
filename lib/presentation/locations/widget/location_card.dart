@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:urban_explorer/di.dart';
 import 'package:urban_explorer/domain/model/location.dart';
 import 'package:urban_explorer/presentation/locations/widget/rating_stars.dart';
 import 'package:urban_explorer/presentation/style/colors.dart';
 
-class LocationCard extends StatelessWidget {
+class LocationCard extends ConsumerWidget {
   final Location location;
 
   const LocationCard({super.key, required this.location});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       height: 130,
       width: double.maxFinite,
@@ -89,9 +91,18 @@ class LocationCard extends StatelessWidget {
               ],
             ),
           ),
-          Icon(Icons.favorite_rounded, color: Colors.white),
+          GestureDetector(
+            onTap: () => toggleFavorite(ref),
+            child: Icon(location.isFavorite ? Icons.favorite_rounded : Icons.favorite_outline_rounded, color: Colors.white),
+          ),
         ],
       ),
     );
+  }
+
+  void toggleFavorite(WidgetRef ref) {
+    location.isFavorite
+        ? ref.read(favoriteListControllerProvider.notifier).removeAsFavorite(location)
+        : ref.read(favoriteListControllerProvider.notifier).setAsFavorite(location);
   }
 }

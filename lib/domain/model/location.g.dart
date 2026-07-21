@@ -25,13 +25,14 @@ class LocationAdapter extends TypeAdapter<Location> {
       (fields[5] as num).toDouble(),
       (fields[6] as num).toInt(),
       fields[7] as String,
+      isFavorite: fields[8] == null ? false : fields[8] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Location obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -47,7 +48,9 @@ class LocationAdapter extends TypeAdapter<Location> {
       ..writeByte(6)
       ..write(obj.rating)
       ..writeByte(7)
-      ..write(obj.imageUrl);
+      ..write(obj.imageUrl)
+      ..writeByte(8)
+      ..write(obj.isFavorite);
   }
 
   @override
@@ -74,6 +77,7 @@ Location _$LocationFromJson(Map<String, dynamic> json) => Location(
   (json['lng'] as num).toDouble(),
   (json['rating'] as num).toInt(),
   json['imageUrl'] as String,
+  isFavorite: json['isFavorite'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$LocationToJson(Location instance) => <String, dynamic>{
@@ -85,4 +89,5 @@ Map<String, dynamic> _$LocationToJson(Location instance) => <String, dynamic>{
   'lng': instance.lng,
   'rating': instance.rating,
   'imageUrl': instance.imageUrl,
+  'isFavorite': instance.isFavorite,
 };

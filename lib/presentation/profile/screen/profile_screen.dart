@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:urban_explorer/di.dart';
 import 'package:urban_explorer/presentation/app_router.dart';
 import 'package:urban_explorer/presentation/common/widget/custom_primary_button.dart';
 import 'package:urban_explorer/presentation/profile/controller/state/profile_state.dart';
+import 'package:urban_explorer/presentation/style/colors.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -56,7 +58,31 @@ class ProfileScreen extends ConsumerWidget {
                           'https://images.pexels.com/photos/16155640/pexels-photo-16155640.jpeg',
                           width: 150,
                           height: 150,
+                          cacheHeight: 150,
+                          cacheWidth: 150,
                           fit: .cover,
+                          loadingBuilder: (context, child, progress) {
+                            if (progress == null) return child;
+                            return Shimmer(
+                              duration: const Duration(seconds: 2),
+                              interval: const Duration(seconds: 3),
+                              child: Container(
+                                width: 150,
+                                height: 150,
+                                color: Colors.white54,
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, _, _) => Container(
+                            width: 150,
+                            height: 150,
+                            color: Colors.white54,
+                            child: Icon(
+                              Icons.error_rounded,
+                              color: AppColors.secondary,
+                              size: 32,
+                            ),
+                          ),
                         ),
                       ),
                     ),

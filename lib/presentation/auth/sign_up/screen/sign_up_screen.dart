@@ -51,7 +51,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             key: formKey,
             child: Column(
               children: [
-                Image.asset('assets/images/sign_in_image.png', width: 200),
+                Hero(
+                  tag: 'sign_in_image',
+                  child: Image.asset('assets/images/sign_in_image.png', width: 150),
+                ),
                 const SizedBox(height: 20),
                 Text(
                   'Please create an account to continue',

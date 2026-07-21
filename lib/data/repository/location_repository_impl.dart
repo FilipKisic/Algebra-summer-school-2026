@@ -14,6 +14,14 @@ class LocationRepositoryImpl implements LocationRepository {
   Future<Result<List<Location>>> getLocations() async {
     try {
       final locations = await _client.getLocations();
+      final favorites = _databaseManager.getAllFavorites();
+
+      for (final location in locations) {
+        if (favorites.contains(location)) {
+          location.isFavorite = true;
+        }
+      }
+
       return Result.ok(locations);
     } on Exception catch (e) {
       return Result.error(e);

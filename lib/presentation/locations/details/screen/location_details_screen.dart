@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:urban_explorer/di.dart';
 import 'package:urban_explorer/domain/model/location.dart';
 import 'package:urban_explorer/presentation/common/widget/custom_primary_button.dart';
 import 'package:urban_explorer/presentation/locations/widget/rating_stars.dart';
 import 'package:urban_explorer/presentation/style/colors.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
-class LocationDetailsScreen extends StatefulWidget {
+class LocationDetailsScreen extends ConsumerStatefulWidget {
   final Location location;
 
   const LocationDetailsScreen({super.key, required this.location});
 
   @override
-  State<LocationDetailsScreen> createState() => _LocationDetailsScreenState();
+  ConsumerState<LocationDetailsScreen> createState() => _LocationDetailsScreenState();
 }
 
-class _LocationDetailsScreenState extends State<LocationDetailsScreen> with TickerProviderStateMixin {
+class _LocationDetailsScreenState extends ConsumerState<LocationDetailsScreen> with TickerProviderStateMixin {
   late final AnimationController _slideController;
   late final Animation<Offset> _slideAnimation;
   late final AnimationController _fadeController;
@@ -125,8 +127,8 @@ class _LocationDetailsScreenState extends State<LocationDetailsScreen> with Tick
                 opacity: _fadeAnimation,
                 child: IconButton.filled(
                   iconSize: 36,
-                  onPressed: () {},
-                  icon: Icon(Icons.favorite_rounded),
+                  onPressed: () => toggleFavorite(location),
+                  icon: Icon(location.isFavorite ? Icons.favorite_rounded : Icons.favorite_outline_rounded),
                   style: IconButton.styleFrom(backgroundColor: AppColors.secondary),
                 ),
               ),
@@ -145,4 +147,11 @@ class _LocationDetailsScreenState extends State<LocationDetailsScreen> with Tick
   }
 
   void _openInMaps() => MapsLauncher.launchCoordinates(widget.location.lat, widget.location.lng, widget.location.title);
+
+  void toggleFavorite(final Location location) {
+    location.isFavorite
+        ? ref.read(favoriteListControllerProvider.notifier).removeAsFavorite(location)
+        : ref.read(favoriteListControllerProvider.notifier).setAsFavorite(location);
+    setState(() {});
+  }
 }

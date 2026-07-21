@@ -45,7 +45,10 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
             key: _formKey,
             child: Column(
               children: [
-                Image.asset('assets/images/sign_in_image.png', width: 250),
+                Hero(
+                  tag: 'sign_in_image',
+                  child: Image.asset('assets/images/sign_in_image.png', width: 250),
+                ),
                 const SizedBox(height: 20),
                 const Text(
                   'Please sign in to your account.',

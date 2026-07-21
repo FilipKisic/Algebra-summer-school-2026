@@ -23,6 +23,13 @@ class CustomPrimaryButton extends StatelessWidget {
           colors: [AppColors.primary, AppColors.secondary],
         ),
         borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            offset: Offset(0, 5),
+            blurRadius: 5,
+          )
+        ]
       ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(

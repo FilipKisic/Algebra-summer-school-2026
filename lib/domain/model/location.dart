@@ -32,6 +32,9 @@ class Location extends HiveObject {
   @HiveField(7)
   final String imageUrl;
 
+  @HiveField(8)
+  bool isFavorite;
+
   Location(
     this.id,
     this.title,
@@ -40,10 +43,18 @@ class Location extends HiveObject {
     this.lat,
     this.lng,
     this.rating,
-    this.imageUrl,
-  );
+    this.imageUrl, {
+    this.isFavorite = false,
+  });
 
   factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
 
   Map<String, dynamic> toJson() => _$LocationToJson(this);
+
+  @override
+  bool operator ==(Object other) =>
+      other is Location && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }

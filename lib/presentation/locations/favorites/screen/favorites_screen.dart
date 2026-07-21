@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:urban_explorer/di.dart';
+import 'package:urban_explorer/domain/model/location.dart';
+import 'package:urban_explorer/presentation/app_router.dart';
 import 'package:urban_explorer/presentation/locations/favorites/controller/state/favorite_list_state.dart';
+import 'package:urban_explorer/presentation/locations/widget/location_card.dart';
 
 class FavoritesScreen extends ConsumerWidget {
   const FavoritesScreen({super.key});
@@ -20,9 +23,10 @@ class FavoritesScreen extends ConsumerWidget {
                 'Favorites',
                 style: TextStyle(fontSize: 40, fontWeight: .bold),
               ),
+              const SizedBox(height: 20),
               switch (state) {
                 EmptyState() => Expanded(child: EmptyStateWidget()),
-                LoadedState() => Center(child: Text('There are favorites')),
+                LoadedState(locations: final locationList) => Expanded(child: FavoritesList(locationList)),
               },
             ],
           ),
@@ -53,3 +57,22 @@ class EmptyStateWidget extends StatelessWidget {
     );
   }
 }
+
+class FavoritesList extends StatelessWidget {
+  final List<Location> locations;
+
+  const FavoritesList(this.locations, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      itemCount: locations.length,
+      itemBuilder: (context, index) => GestureDetector(
+        onTap: () => Navigator.of(context).pushNamed(AppRouter.locationDetails, arguments: locations[index]),
+        child: LocationCard(location: locations[index]),
+      ),
+      separatorBuilder: (context, index) => const SizedBox(height: 15),
+    );
+  }
+}
+
