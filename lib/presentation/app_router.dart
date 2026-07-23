@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:urban_explorer/domain/model/location.dart';
 import 'package:urban_explorer/presentation/auth/sign_in/screen/sign_in_screen.dart';
 import 'package:urban_explorer/presentation/auth/sign_up/screen/sign_up_screen.dart';
+import 'package:urban_explorer/presentation/auth/sign_up/screen/verification_screen.dart';
 import 'package:urban_explorer/presentation/locations/screen/home_screen.dart';
 import 'package:urban_explorer/presentation/splash/screen/splash_screen.dart';
 
@@ -14,6 +15,7 @@ class AppRouter {
   static const String signUp = '/signUp';
   static const String home = '/home';
   static const String locationDetails = '/details';
+  static const String verification = '/verification';
 
   static Route<dynamic> generateRoute(final RouteSettings settings) {
     switch (settings.name) {
@@ -25,6 +27,7 @@ class AppRouter {
         final location = settings.arguments as Location;
         return LocationDetailsScreen(location: location);
       });
+      case verification: return MaterialPageRoute(builder: (_) => const VerificationScreen());
 
       default: throw Exception('Route not found.');
     }

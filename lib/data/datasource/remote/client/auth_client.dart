@@ -7,8 +7,12 @@ class AuthClient {
   }
 
   Future<UserCredential> signUp(final String email, final String password) async {
-    return FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+    final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+    user.user?.sendEmailVerification();
+    return user;
   }
 
   Future<void> signOut() async => FirebaseAuth.instance.signOut();
+
+  Future<void> resendEmail(User user) async => user.sendEmailVerification();
 }

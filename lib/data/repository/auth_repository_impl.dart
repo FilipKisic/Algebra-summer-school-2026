@@ -51,4 +51,14 @@ class AuthRepositoryImpl implements AuthRepository {
      return Result.error(Exception('There was an unexpected error.'));
    }
   }
+
+  @override
+  Future<Result<void>> resendEmail(User user) async {
+    try {
+      await _authClient.resendEmail(user);
+      return Result.ok(null);
+    } catch (e) {
+      return Result.error(Exception('There was an email error'));
+    }
+  }
 }

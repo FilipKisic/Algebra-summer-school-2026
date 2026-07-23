@@ -34,7 +34,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       }
 
       if (currentState is SuccessState) {
-        Navigator.of(context).pushReplacementNamed(AppRouter.home);
+        Navigator.of(context).pushReplacementNamed(AppRouter.verification);
       }
     });
 

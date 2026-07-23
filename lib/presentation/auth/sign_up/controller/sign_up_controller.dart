@@ -20,4 +20,11 @@ class SignUpController extends Notifier<SignUpState>{
       case Error<UserCredential>(): state = ErrorState(result.exception);
     }
   }
+
+  void resendEmail() {
+    if (state is SuccessState) {
+      final user = (state as SuccessState).user.user;
+      ref.read(resendEmailUseCaseProvider).execute(user!);
+    }
+  }
 }

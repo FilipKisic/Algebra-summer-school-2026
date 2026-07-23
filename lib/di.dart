@@ -11,6 +11,7 @@ import 'package:urban_explorer/domain/repository/location_repository.dart';
 import 'package:urban_explorer/domain/use_case/get_all_favorite_locations_use_case.dart';
 import 'package:urban_explorer/domain/use_case/get_locations_use_case.dart';
 import 'package:urban_explorer/domain/use_case/remove_location_as_favorite_use_case.dart';
+import 'package:urban_explorer/domain/use_case/resend_email_use_case.dart';
 import 'package:urban_explorer/domain/use_case/set_location_as_favorite_use_case.dart';
 import 'package:urban_explorer/domain/use_case/sign_in_use_case.dart';
 import 'package:urban_explorer/domain/use_case/sign_out_use_case.dart';
@@ -76,6 +77,10 @@ final setAsFavoriteUseCaseProvider = Provider(
 
 final removeAsFavoriteUseCaseProvider = Provider(
       (ref) => RemoveLocationAsFavoriteUseCase(ref.watch(locationRepositoryProvider)),
+);
+
+final resendEmailUseCaseProvider = Provider(
+      (ref) => ResendEmailUseCase(ref.watch(authRepositoryProvider)),
 );
 
 // ************ CONTROLLERS ************ //
